@@ -4,7 +4,7 @@ pipeline {
         stage("Checkout Repo") {
             steps {
                 sh '''
-                echo 'Successfully executed Project-A : A1 Pipeline Job'
+                echo 'Successfully executed Autocancel :  Pipeline Job'
                 '''
             }
         }
