@@ -1,8 +1,10 @@
 pipeline {
     agent any
-        options {
+    
+    options {
         disableConcurrentBuilds(abortPrevious: true)
     }
+    
     stages {
         stage('Pre-build check') {
             steps {
@@ -14,33 +16,20 @@ pipeline {
                 }
             }
         }
-        // The rest of your pipeline stages go here
-
-        stage("Checkout Repo") {
-            steps {
-                sh '''
-                echo 'Successfully executed Autocancel :  Pipeline Job'
-                '''
-            }
-        }
+        
         stage('Build') {
             steps {
-                lock('build-lock') {
-                    // This block will only be executed if the lock is acquired
-                    echo 'Build started'
-                    sleep 10 // Simulate a long build time
-                    sh 'exit 1' // Simulate a build failure
-                }
+                sh 'exit 1' // Simulate a build failure
             }
         }
+    }
+    
     post {
         always {
             milestone(1)
         }
         failure {
-            input 'The previous build failed. Do you want to proceed with this build?'
+            input 'The target branch is currently in a failed state. Do you want to continue'
         }
-    }                
-
-  }
+    }
 }
