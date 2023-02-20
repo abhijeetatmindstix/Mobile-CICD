@@ -1,11 +1,9 @@
 pipeline {
     agent any
-//         options {
-//         disableConcurrentBuilds(abortPrevious: true)
-//     }
-           options {
-           blockBuildWhenDownstreamBuilding()
-       }
+        options {
+        disableConcurrentBuilds(abortPrevious: true)
+    }
+
     
     stages {
         stage("Checkout Repo") {
@@ -15,21 +13,34 @@ pipeline {
                 '''
             }
         }
-        stage("Timeout"){
-            steps{
-                timeout(time: 10, unit: 'MINUTES') {
-                  input message: "does this look good"             
+        stage('Build') {
+            steps {
+                lock('build-lock') {
+                    // This block will only be executed if the lock is acquired
+                    echo 'Build started'
+                    sleep 10 // Simulate a long build time
+                    sh 'exit 1' // Simulate a build failure
+                }
             }
-        }
-     }
+        }        
+//         stage("Timeout"){
+//             steps{
+//                 timeout(time: 10, unit: 'MINUTES') {
+//                   input message: "does this look good"             
+//             }
+//         }
+//      }
    }
     
     post {
-        failure {
-            script {
-                currentBuild.result = 'FAILURE'
-                error 'Previous build failed'
-            }
+        always {
+            // Release the lock after the build completes
+            releaseLock('build-lock')
         }
-    }    
+    }   
 }
+
+    
+
+}
+
