@@ -15,9 +15,6 @@ pipeline {
             }
         }
         // The rest of your pipeline stages go here
-    }    
-
-    
 
         stage("Checkout Repo") {
             steps {
@@ -45,4 +42,5 @@ pipeline {
         }
     }                
 
+  }
 }
