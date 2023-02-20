@@ -1,8 +1,12 @@
 pipeline {
     agent any
-        options {
-        disableConcurrentBuilds(abortPrevious: true)
-    }
+//         options {
+//         disableConcurrentBuilds(abortPrevious: true)
+//     }
+           options {
+           blockBuildWhenDownstreamBuilding()
+       }
+    
     stages {
         stage("Checkout Repo") {
             steps {
