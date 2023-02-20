@@ -23,13 +23,7 @@ pipeline {
                 }
             }
         }        
-//         stage("Timeout"){
-//             steps{
-//                 timeout(time: 10, unit: 'MINUTES') {
-//                   input message: "does this look good"             
-//             }
-//         }
-//      }
+
    }
     post {
         always {
