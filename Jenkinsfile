@@ -31,16 +31,17 @@ pipeline {
 //         }
 //      }
    }
-    
     post {
         always {
-            // Release the lock after the build completes
-            releaseLock('build-lock')
+            milestone(1)
         }
-    }   
+        failure {
+            input 'The previous build failed. Do you want to proceed with this build?'
+        }
+    }    
+  
 }
 
-    
 
 
 
