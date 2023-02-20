@@ -35,9 +35,7 @@ pipeline {
                     sh 'exit 1' // Simulate a build failure
                 }
             }
-        }        
-
-   }
+        }
     post {
         always {
             milestone(1)
@@ -45,10 +43,6 @@ pipeline {
         failure {
             input 'The previous build failed. Do you want to proceed with this build?'
         }
-    }    
-  
+    }                
+
 }
-
-
-
-
