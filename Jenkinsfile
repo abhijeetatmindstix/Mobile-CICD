@@ -18,7 +18,7 @@ pipeline {
     }    
 
     
-    stages {
+
         stage("Checkout Repo") {
             steps {
                 sh '''
